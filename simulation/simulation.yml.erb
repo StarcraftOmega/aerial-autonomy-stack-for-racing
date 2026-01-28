@@ -134,9 +134,8 @@ windows:
         - echo "Headless mode, not launching QGroundControl."
         <% else %>
         - >
-          <% if num_quads > 0 %>
-          sed -i 's/virtualJoystickAutoCenterThrottle=false/virtualJoystickAutoCenterThrottle=true/g' /home/qgcuser/.config/QGroundControl/QGroundControl.ini &&
-          <% end %>
+          sed -i 's/^virtualJoystick=.*/virtualJoystick=<%= (num_quads + num_vtols) == 1 %>/g' /home/qgcuser/.config/QGroundControl/QGroundControl.ini &&
+          sed -i 's/^virtualJoystickAutoCenterThrottle=.*/virtualJoystickAutoCenterThrottle=<%= num_quads == 1 %>/g' /home/qgcuser/.config/QGroundControl/QGroundControl.ini &&
           gosu qgcuser /squashfs-root/AppRun &
           (
             PRIMARY_RES=$(xrandr | grep -oE '[0-9]+x[0-9]+' | head -1)
