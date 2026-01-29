@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04-arm
-    timeout-minutes: 120
+    timeout-minutes: 180
     permissions:
       contents: read
       packages: write
