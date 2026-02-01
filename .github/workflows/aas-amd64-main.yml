@@ -121,4 +121,6 @@ jobs:
           pip install -e .
 
       - name: Run aas-gym test
-        run: python3 ./scripts/gym_run.py --mode speedup --no-camera --no-lidar
+        run: |
+          python3 ./scripts/gym_run.py --mode speedup --autopilot px4 --num_quads 2
+          python3 ./scripts/gym_run.py --mode speedup --autopilot ardupilot --num_quads 2
