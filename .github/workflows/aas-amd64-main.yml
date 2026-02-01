@@ -108,7 +108,6 @@ jobs:
           activate-environment: aas
           python-version: 3.13
           auto-activate: true
-          channels: conda-forge, defaults
           use-only-tar-bz2: true 
 
       - name: Disable GPU requirements
