@@ -195,6 +195,8 @@ cd aerial-autonomy-stack/scripts/
 
 ./sim_build.sh
 # Note: the 1st build takes ~30GB of space and ~25' with good internet (`Ctrl + c` and restart if needed)
+# Alternatively, pre-build images are available on ghcr.io:
+# docker pull ghcr.io/jacopopan/[aircraft|ground|simulation]-image:latest
 ```
 
 <div align="right">

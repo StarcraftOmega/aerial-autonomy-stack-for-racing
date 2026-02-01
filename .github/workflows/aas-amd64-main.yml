@@ -120,7 +120,18 @@ jobs:
           cd ./aas-gym/          
           pip install -e .
 
-      - name: Run aas-gym test
+      - name: Run aas-gym test 1
         run: |
           python3 ./scripts/gym_run.py --mode speedup --num_quads 2 --no-camera --no-lidar --autopilot px4
-          python3 ./scripts/gym_run.py --mode speedup --num_quads 2 --no-camera --no-lidar --autopilot ardupilot
+
+      - name: Cleanup between tests
+        if: always()
+        run: |
+          docker kill $(docker ps -q) || true
+          docker rm $(docker ps -a -q) || true
+          docker network prune -f
+          sleep 10 
+
+      - name: Run aas-gym test 2
+        run: |
+          python3 ./scripts/gym_run.py --mode speedup --num_quads 1 --no-camera --no-lidar --autopilot ardupilot
