@@ -479,10 +479,6 @@ Once done, detach Tmux (and remove the containers) with `Ctrl + b`, then `d`
 
 <!-- 
 
-## License 
-
-Distributed under the MIT License. See `LICENSE.txt` for more information. Copyright (c) 2025 Jacopo Panerati
-
 ## Known Issues
 
 - ArduPilot SITL for Iris uses option -f that also sets "external": True, this is not the case for the Alti Transition from ArduPilot/SITL_Models
@@ -494,28 +490,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information. Copyr
 - QGC does not save roll and pitch in the telemetry bar for PX4 VTOLs (MAV_TYPE 22)
 - PX4 quad max tilt is limited by the anti-windup gain (zero it to deactivate it): const float arw_gain = 2.f / _gain_vel_p(0);
 
-## Major Dependencies (revised yearly)
+## License 
 
-- [*Ubuntu 22.04*](https://ubuntu.com/about/release-cycle) (LTS, ESM 4/2032)
-- [*`nvidia-driver-580`*](https://developer.nvidia.com/datacenter-driver-archive) (latest as of 9/2025)
-- [*Docker Engine v28*](https://docs.docker.com/engine/release-notes/28/)
-- [*NVIDIA Container Toolkit 1.18*](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html) (latest as of 11/2025)
-- [*ROS2 Humble*](https://docs.ros.org/en/rolling/Releases.html) (LTS, EOL 5/2027)
-- [*Gazebo Sim Harmonic*](https://gazebosim.org/docs/latest/releases/) (LTS, EOL 9/2028)
-- [*PX4 1.16*](https://github.com/PX4/PX4-Autopilot/releases) interfaced *via* [XRCE-DDS](https://github.com/eProsima/Micro-XRCE-DDS/releases)
-- [*ArduPilot 4.6*](https://github.com/ArduPilot/ardupilot/releases) interfaced *via* [MAVROS](https://github.com/mavlink/mavros/releases)
-- [*YOLOv8*](https://github.com/ultralytics/ultralytics/releases) on [*ONNX Runtime 1.22*](https://onnxruntime.ai/getting-started) (latest stable releases as of 8/2025)
-- [*L4T 36* (Ubuntu 22-based)/*JetPack 6*](https://developer.nvidia.com/embedded/jetpack-archive) (for deployment only, latest major release as of 8/2025)
-- [WSL](https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps) (for simulation and development on Windows 11 only)
-
-## TODOs
-
-LiDAR-inertial Odometry and SLAM
-- Integrate [SPARK-FAST-LIO](https://github.com/MIT-SPARK/spark-fast-lio) or [SuperOdom](https://github.com/superxslam/SuperOdom) as additional baselines
-- Create a 3D world.sdf for LIO-based navigation and mapping
-- Create a 3D world.sdf WITHOUT GPS PLUGIN (and configure PX4/ArduPilot accordingly) for LIO-based navigation and mapping
-- Add examples in the README.md showing exploration of these world with 3D mapping
-- Develop own/custom SLAM/collaborative SLAM approach
-- Study how to compare/use/fuse LIO with PX4/ArduPilot state estimation
+Distributed under the MIT License. See `LICENSE.txt` for more information. Copyright (c) 2025 Jacopo Panerati
 
 -->

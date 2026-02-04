@@ -48,3 +48,42 @@ For even more resources, check out [`aerial_robotic_landscape`](https://github.c
     - GStreamer camera-to-companion board acquisition pipelines
     - Zenoh inter-vehicle ROS2 bridge, with networking over LAN (HITL) or emulated by `docker network` (SITL)
     - Dual network—in both SITL and HITL—to separate synthetic sensor data from inter-vehicle communication
+
+## Roadmap
+
+### LiDAR-inertial Odometry and SLAM
+
+- [ ] Add [SuperOdom](https://github.com/superxslam/SuperOdom) baseline
+- [ ] Add [SPARK-FAST-LIO](https://github.com/MIT-SPARK/spark-fast-lio) baseline
+- [ ] Create a suitable, obstacle-rich 3D world.sdf for LIO-based navigation and mapping
+- [ ] Refine the sensor model and placement of `sensor_lidar`
+- [ ] Compare localization performance for a pre-defined navigation task at varying speeds
+- [ ] Develop proposed approach
+- [ ] Fuse offboard state estimation into PX4/ArduPilot onboard state estimation
+- [ ] Add GPSless SITL simulation option
+
+<!-- 
+
+### Betaflight SITL
+
+TBD
+
+-->
+
+### Dependency Management
+
+PRs to update dependencies to their latest stable release (or this list) are welcome
+
+- [x] Host OS: [Ubuntu 22.04/24.04 (LTS, ESM 4/2034)](https://ubuntu.com/about/release-cycle)
+- [x] Jetson OS: [L4T 36 (Ubuntu 22-based)/JetPack 6 (latest major release for Orin as of 2/2026)](https://developer.nvidia.com/embedded/jetpack-archive)
+- [ ] `nvidia-driver-580` https://developer.nvidia.com/datacenter-driver-archive -> **UPDATE TO 590**
+- [x] [Docker Engine v28 or newer](https://docs.docker.com/engine/release-notes/)
+- [x] [NVIDIA Container Toolkit 1.18 or newer](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
+- [ ] `amd64` base image: [`cuda:12.8.1-cudnn-runtime-ubuntu22.04`](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda/tags) -> **UPDATE TO `cuda:13.1.1-cudnn-runtime-ubuntu22.04`**
+- [x] `arm64`/Jetson base image: [`l4t-jetpack:r36.4.0`](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack/tags)
+- [x] [ROS2 Humble (LTS, EOL 5/2027)](https://docs.ros.org/en/rolling/Releases.html)
+- [x] [Gazebo Sim Harmonic (LTS, EOL 9/2028)](https://gazebosim.org/docs/latest/releases/)
+- [ ] [PX4 1.16.0](https://github.com/PX4/PX4-Autopilot/releases) -> **UPDATE TO 1.16.1**
+- [ ] [ArduPilot 4.6.2](https://github.com/ArduPilot/ardupilot/releases) -> **UPDATE TO 4.6.3**
+- [x] [YOLOv8](https://github.com/ultralytics/ultralytics/releases)
+- [ ] [ONNX Runtime 1.22.1](https://onnxruntime.ai/getting-started) -> **UPDATE TO 1.23.2**
