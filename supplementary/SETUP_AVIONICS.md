@@ -87,7 +87,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo docker run hello-world         # Test Docker is working
-sudo docker version                 # Check version, 28.3.0 at the time of writing
+sudo docker version                 # (optional) Check version
 
 # Remove the need to sudo the docker command
 sudo groupadd docker
@@ -119,7 +119,7 @@ sudo apt-get install -y \
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 
-docker info | grep -i runtime       # Check `nvidia` runtime is available
+docker info | grep -i runtime       # Check the `nvidia` runtime is available
 
 docker run --rm --runtime=nvidia nvcr.io/nvidia/l4t-base:r36.2.0 nvidia-smi    # Test nvidia-smi works in a container with Linux4Tegra
 ```

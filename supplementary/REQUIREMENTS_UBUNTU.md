@@ -10,7 +10,7 @@
   - Run "Software Updater" and restart
   - "Update All" in "Ubuntu Software" (including `killall snap-store && sudo snap refresh snap-store`)
   - Update and restart for "Device Firmware" as necessary
-- In "Software & Updates", select "Using NVIDIA driver metapackage from nvidia-driver-580 (proprietary)"
+- In "Software & Updates", select "Using NVIDIA driver metapackage from `nvidia-driver-580` (proprietary)"
 - (optional) Go to "Settings" -> "Power", select  the "Performance" "Power Mode" and disable all "Power Saving Options"
 
 ```sh
@@ -19,7 +19,7 @@ sudo apt update && sudo apt upgrade
 nvidia-smi                          # Should report something like "Driver Version: 580.65.06, CUDA Version: 13.0"
 
 sudo apt install -y mesa-utils
-glxinfo -B                          # Check OpenGL renderer
+glxinfo -B                          # (optional) Check OpenGL renderer, to force GPU rendering, use $ sudo prime-select nvidia
 ```
 
 ## Install Docker Engine
@@ -47,7 +47,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo docker run hello-world         # Test Docker is working
-sudo docker version                 # Check version, 28.3.0 at the time of writing
+sudo docker version                 # (optional) Check version
 
 # Remove the need to sudo the docker command
 sudo groupadd docker
@@ -79,7 +79,7 @@ sudo apt-get install -y \
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 
-docker info | grep -i runtime       # Check `nvidia` runtime is available
+docker info | grep -i runtime       # Check the `nvidia` runtime is available
 
 docker run --rm --gpus all nvcr.io/nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi        # Test nvidia-smi works in a container with CUDA
 ```

@@ -21,7 +21,7 @@ sudo apt update && sudo apt upgrade
 sudo apt install -y x11-apps x11-xserver-utils        # Install X11 apps and xserver
 xclock                                                # Test: a new window with a clock should appear
 
-free -h                                               # Check the memory and swap made available to WSL
+free -h                                               # (optional) Check the memory and swap made available to WSL
 ```
 
 > [!WARNING]
@@ -62,11 +62,9 @@ wsl ~                               # Access WSL from Windows PowerShell
 
 nvidia-smi                          # From WSL, check NVIDIA driver (these instructions are tested on Driver Version: 581.80, CUDA Version:13.0)
 
-# Important: if you have hybrid Intel CPU graphics (most laptops), force the use of the GPU for OpenGL rendering
-echo 'export MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA' >> ~/.bashrc && source ~/.bashrc
-
 sudo apt update && sudo apt install -y mesa-utils
-glxinfo -B                          # Check the NVIDIA GPU is the OpenGL renderer
+glxinfo -B                          # (optional) Check OpenGL renderer, to force GPU rendering, use $ echo 'export MESA_D3D12_DEFAULT_ADAPTER_NAME=NVIDIA' >> ~/.bashrc && source ~/.bashrc
+
 ```
 
 ## Install Docker Engine inside WSL
@@ -96,7 +94,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo docker run hello-world         # Test Docker is working
-sudo docker version                 # Check version, 28.3.0 at the time of writing
+sudo docker version                 # (optional) Check version
 
 # Remove the need to sudo the docker command
 sudo groupadd docker
@@ -130,7 +128,7 @@ sudo apt-get install -y \
 sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 
-docker info | grep -i runtime       # Check `nvidia` runtime is available
+docker info | grep -i runtime       # Check the `nvidia` runtime is available
 
 docker run --rm --gpus all nvcr.io/nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi        # Test nvidia-smi works in a container with CUDA
 ```
