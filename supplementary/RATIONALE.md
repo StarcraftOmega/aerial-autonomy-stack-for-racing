@@ -14,9 +14,10 @@ This is the challenge—and good sport—of **vertical/full-stack integration** 
 - the **many frameworks** that go into drone autonomy (a physics engine to simulate drone dynamics, a rendering engine to generate realistic imagery, a GPU-accelerated machine learning runtime for perception, one or more inter-process and inter-thread communication middleware, the interface to the microcontroller and autopilot software performing state-estimation and low-level control, the SDKs of the deployed embedded systems, etc.)
 - emulated **inter-robot communication** (in aerial systems, this is heavily affected by the actual flight plans and available RF hardware)
 
-## Presentations
+## Presentations and Papers
 
 - [Aerial Robotics Meeting - January 22nd 2026 [slides]](https://docs.google.com/presentation/d/1Sz0d7WPWNwgCM3Q49Nnq1mvkSwPyK_CCQ7viHxO_Ucs)
+- [aerial-autonomy-stack—a Faster-than-real-time, Autopilot-agnostic, ROS2 Framework to Simulate and Deploy Perception-based Drones - February 2026 [arXiv]](https://arxiv.org/abs/2602.07264)
 
 ## Related Work
 
@@ -55,16 +56,15 @@ For even more resources, check out [`aerial_robotic_landscape`](https://github.c
 
 > Advanced localization and mapping baselines and capabilities
 
-- [x] [KISS-ICP](https://github.com/PRBonn/kiss-icp) LiDAR odometry baseline
-- [ ] Add  LIO baselines (e.g., [SuperOdom](https://github.com/superxslam/SuperOdom), [SPARK-FAST-LIO](https://github.com/MIT-SPARK/spark-fast-lio))
-- [ ] (optional) visual-inertial baseline (e.g., [open_vins](https://github.com/rpng/open_vins), [VINS-Mono](https://github.com/HKUST-Aerial-Robotics/VINS-Mono))
-- [ ] Create an indoor (maze-like) 3D world.sdf for LIO-based navigation and mapping
-- [ ] Create an outdoor 3D world.sdf for LIO-based navigation and mapping
-- [ ] Refine the sensor model and placement of `sensor_lidar`
+- [x] [KISS-ICP](https://github.com/PRBonn/kiss-icp) LiDAR odometry (LO) baseline
+- [ ] Add config files (and shell) for the resolution/rate/extrinsic of the camera and lidar sensors/pipelines/topics
+- [ ] Add visual-inertial (VIO) baseline (e.g., [open_vins](https://github.com/rpng/open_vins))
+- [ ] Add  LiDAR-intertial (LIO) baseline (e.g., [SPARK-FAST-LIO](https://github.com/MIT-SPARK/spark-fast-lio))
+- [ ] Add  LIVO baselines (e.g., [SuperOdom](https://github.com/superxslam/SuperOdom), [FAST-LIVO2](https://github.com/hku-mars/FAST-LIVO2))
+- [ ] Create a 3D world.sdf for LIVO-based navigation and mapping (i.e., textured and obstacle rich)
 - [ ] Compare localization performance for a pre-defined navigation task at varying speeds
 - [ ] Develop proposed approach
-- [ ] Fuse offboard state estimation into PX4/ArduPilot onboard state estimation
-- [ ] Add GPSless SITL simulation option
+- [ ] Use LIVO for PX4/ArduPilot SITL control (e.g., [PX4-Multiagent-Simulation](https://github.com/TannerGilbert/PX4-Multiagent-Simulation), [Ardupilot_Multiagent_Simulation](https://github.com/aau-cns/Ardupilot_Multiagent_Simulation))
 
 ### Feature: Gymnasium RL Environment and Examples
 
