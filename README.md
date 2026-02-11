@@ -132,56 +132,56 @@ aerial-autonomy-stack
 ├── aas-gym
 │   └── src
 │       └── aas_gym
-│           └── aas_env.py                          # aerial-autonomy-stack as a Gymnasium environment
+│           └── aas_env.py                            # aerial-autonomy-stack as a Gymnasium environment
 │
 ├── aircraft
 │   ├── aircraft_ws
 │   │   └── src
-│   │       ├── autopilot_interface                 # Ardupilot/PX4 high-level actions (Takeoff, Orbit, Offboard, Land)
-│   │       ├── mission                             # Orchestrator of the actions in `autopilot_interface` 
-│   │       ├── offboard_control                    # Low-level references for the Offboard action in `autopilot_interface` 
-│   │       ├── state_sharing                       # Publisher of the `/state_sharing_drone_N` topic broadcasted by Zenoh
-│   │       └── yolo_py                             # GStreamer video acquisition and publisher of YOLO bounding boxes
+│   │       ├── autopilot_interface                   # Ardupilot/PX4 high-level actions (Takeoff, Orbit, Offboard, Land)
+│   │       ├── mission                               # Orchestrator of the actions in `autopilot_interface`
+│   │       ├── offboard_control                      # Low-level references for the Offboard action in `autopilot_interface`
+│   │       ├── state_sharing                         # Publisher of the `/state_sharing_drone_N` topic broadcasted by Zenoh
+│   │       └── yolo_py                               # GStreamer video acquisition and publisher of YOLO bounding boxes
 │   │
-│   └── aircraft.yml.erb                            # Aircraft docker tmux entrypoint
+│   └── aircraft.yml.erb                              # Aircraft docker tmux entrypoint
 │
 ├── ground
 │   ├── ground_ws
 │   │   └── src
-│   │       └── ground_system                       # Publisher of topic `/tracks` broadcasted by Zenoh
+│   │       └── ground_system                         # Publisher of topic `/tracks` broadcasted by Zenoh
 │   │
-│   └── ground.yml.erb                              # Ground docker tmux entrypoint
+│   └── ground.yml.erb                                # Ground docker tmux entrypoint
 │
 ├── scripts
 │   ├── docker
-│   │   ├── Dockerfile.aircraft                     # Docker image for aircraft simulation and deployment
-│   │   ├── Dockerfile.ground                       # Docker image for ground system simulation and deployment
-│   │   └── Dockerfile.simulation                   # Docker image for SITL and HITL simulation
+│   │   ├── Dockerfile.aircraft                       # Docker image for aircraft simulation and deployment
+│   │   ├── Dockerfile.ground                         # Docker image for ground system simulation and deployment
+│   │   └── Dockerfile.simulation                     # Docker image for SITL and HITL simulation
 │   │
-│   ├── deploy_build.sh                             # Build `Dockerfile.aircraft` for arm64/Orin
-│   ├── deploy_run.sh                               # Start the aircraft docker on arm64/Orin or the ground docker on amd64 (deploy or HITL)
+│   ├── deploy_build.sh                               # Build `Dockerfile.aircraft` for arm64/Orin
+│   ├── deploy_run.sh                                 # Start the aircraft docker on arm64/Orin or the ground docker on amd64 (deploy or HITL)
 │   │
-│   ├── gym_run.py                                  # Examples for the Gymnasium aas-gym package
+│   ├── gym_run.py                                    # Examples for the Gymnasium aas-gym package
 │   │
-│   ├── sim_build.sh                                # Build all dockerfiles for amd64/simulation
-│   └── sim_run.sh                                  # Start the simulation (SITL or HITL)
+│   ├── sim_build.sh                                  # Build all dockerfiles for amd64/simulation
+│   └── sim_run.sh                                    # Start the simulation (SITL or HITL)
 │
 └── simulation
     ├── simulation_resources
     │   ├── aircraft_models
-    │   │   ├── alti_transition_quad                # ArduPilot VTOL model
-    │   │   ├── iris_with_ardupilot                 # ArduPilot quad model
-    │   │   ├── sensor_camera                       # Camera model
-    │   │   ├── sensor_lidar                        # LiDAR model
-    │   │   ├── standard_vtol                       # PX4 VTOL model
-    │   │   └── x500                                # PX4 quad model
+    │   │   ├── alti_transition_quad                  # ArduPilot VTOL model
+    │   │   ├── iris_with_ardupilot                   # ArduPilot quad model
+    │   │   ├── sensor_camera                         # Camera model
+    │   │   ├── sensor_lidar                          # LiDAR model
+    │   │   ├── standard_vtol                         # PX4 VTOL model
+    │   │   └── x500                                  # PX4 quad model
     │   └── simulation_worlds
     │       ├── apple_orchard.sdf
     │       ├── impalpable_greyness.sdf
     │       ├── shibuya_crossing.sdf
     │       └── swiss_town.sdf
     │
-    └── simulation.yml.erb                          # Simulation docker tmux entrypoint
+    └── simulation.yml.erb                            # Simulation docker tmux entrypoint
 ```
 </details>
 
@@ -193,9 +193,8 @@ sudo apt update && sudo apt install -y git git-lfs xterm xfonts-base && git lfs 
 git clone https://github.com/JacopoPan/aerial-autonomy-stack.git
 cd aerial-autonomy-stack/scripts/
 
-./check_requirements.sh                             # If needed, refer to REQUIREMENTS_UBUNTU.md and REQUIREMENTS_WSL.md to install the requirements
-./sim_build.sh                                      # Note: the 1st build takes ~30GB of space and ~25' with good internet (`Ctrl + c` and restart if needed)
-                                                    # Alternatively, pre-build images are available on ghcr.io: docker pull ghcr.io/jacopopan/[aircraft|ground|simulation]-image:latest
+./check_requirements.sh                               # If needed, refer to REQUIREMENTS_UBUNTU.md and REQUIREMENTS_WSL.md to install the requirements
+./sim_build.sh                                        # Note: the 1st build takes ~30GB of space and ~30' with fast internet (`Ctrl + c` and restart if needed, cached stages will be preserved); alternatively, pre-build images are available on ghcr.io: docker pull ghcr.io/jacopopan/[aircraft|ground|simulation]-image:latest
 ```
 
 <div align="right">
@@ -272,8 +271,10 @@ python3 /aas/simulation_resources/scripts/gz_wind.py --stop_wind
 >
 > ```sh
 > Ctrl + b, then n, p                   # Move between Tmux windows 
-> Ctrl + b, then [arrow keys]           # Move between Tmux panes in a window
-> Ctrl + [, then [arrow keys]           # Enter copy mode (to select and/or scroll back)
+> Ctrl + b, then [arrow keys]           # Move between Tmux panes in a window (or use the mouse)
+> Ctrl + [, then [arrow keys]           # Enter copy mode (to scroll back in a pane, or simply select-and-drag with the mouse to copy)
+> Space                                 # Start selecting when in copy mode (move with arrow keys)
+> y                                     # Yank/copy the selection to clipboard (paste with Ctrl + v or Ctrl + Shit + v)
 > q                                     # Exit copy mode
 > Ctrl + b, then "                      # Split a Tmux window horizontally
 > Ctrl + b, then %                      # Split a Tmux window vertically
@@ -333,6 +334,7 @@ python3 /aas/simulation_resources/scripts/gz_wind.py --stop_wind
 > docker network ls                     # List docker networks
 > docker network rm <network_name>      # Remove a specific network
 > docker network prune -f               # Remove all unused networks
+> docker system df                      # Check disk usage by images and cache
 > docker system prune                   # Remove stopped containers, unused networks and cache, dangling images
 > ```
 > ```sh
@@ -411,7 +413,7 @@ sudo apt update && sudo apt install -y git git-lfs
 git clone https://github.com/JacopoPan/aerial-autonomy-stack.git
 cd aerial-autonomy-stack/scripts/
 
-./deploy_build.sh                                                                             # Build for arm64, on Jetson Orin NX the first build takes ~1h, mostly to build onnxruntime-gpu with TensorRT support from source
+./deploy_build.sh                                     # Build for arm64, on Jetson Orin NX the first build takes ~1h, mostly to build onnxruntime-gpu with TensorRT support from source
 ```
 
 <div align="right">

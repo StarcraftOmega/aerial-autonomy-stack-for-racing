@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update the package list and install basic dependencies
 RUN apt update \
     && apt install -y --no-install-recommends \
-        wget gosu htop vim ruby tmux net-tools iproute2 iputils-ping netcat-openbsd \
+        wget gosu htop vim ruby tmux xclip net-tools iproute2 iputils-ping netcat-openbsd \
         python3-pip python3-venv \
         mesa-utils \
     && gem install tmuxinator \
@@ -261,4 +261,5 @@ RUN echo "source /aas/simulation_ws/install/setup.bash" >> /root/.bashrc
 # Final config
 WORKDIR /aas
 COPY simulation/simulation.yml.erb /aas/simulation.yml.erb
+COPY simulation/simulation_resources/patches/tmux.conf /root/.tmux.conf
 ENTRYPOINT ["tmuxinator", "start", "-p", "/aas/simulation.yml.erb"]
