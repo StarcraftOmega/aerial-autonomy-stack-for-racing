@@ -76,4 +76,4 @@
 - [ ] [PX4 1.16.0](https://github.com/PX4/PX4-Autopilot/releases) -> **UPDATE TO 1.16.1**
 - [ ] [ArduPilot 4.6.2](https://github.com/ArduPilot/ardupilot/releases) -> **UPDATE TO 4.6.3**
 - [x] [YOLOv8](https://github.com/ultralytics/ultralytics/releases)
-- [ ] [ONNX Runtime 1.22.1](https://onnxruntime.ai/getting-started) -> **UPDATE TO 1.23.2**
+- [x] [ONNX Runtime 1.23.2](https://github.com/microsoft/onnxruntime/releases) (updating to 1.24 from wheel will require switching to Python 3.11)
