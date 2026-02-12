@@ -227,7 +227,7 @@ AUTOPILOT=px4 NUM_QUADS=1 NUM_VTOLS=1 WORLD=swiss_town RTF=3.0 ./sim_run.sh     
 # NUM_QUADS=0, 1, ...
 # NUM_VTOLS=0, 1, ...
 # WORLD=impalpable_greyness, apple_orchard, shibuya_crossing, swiss_town
-# RTF==1.0, use 0.0 for "as fast as possible"
+# RTF=1.0, use 0.0 for "as fast as possible"
 # INSTANCE=0, 1, ... (integer ID to run multiple parallel simulations)
 ```
 
@@ -243,7 +243,7 @@ In the `Simulation`'s Xterm terminal:
 /aas/simulation_resources/scripts/plot_logs.sh                                                # Analyze the flight logs at http://10.42.90.100:5006/browse or in MAVExplorer
 ```
 <details>
-<summary>Add or disable <b>wind effects</b>, in the `Simulation`'s Xterm terminal <i>(click to expand)</i></summary>
+<summary>Add or disable <b>wind effects</b>, in the <kbd>Simulation</kbd>'s Xterm terminal <i>(click to expand)</i></summary>
 
 ```sh
 python3 /aas/simulation_resources/scripts/gz_wind.py --from_west 0.0 --from_south 3.0
@@ -433,7 +433,7 @@ cd aerial-autonomy-stack/scripts/
 >
 > Read [`SETUP_AVIONICS.md`](/supplementary/SETUP_AVIONICS.md) to setup the requirements on the Jetson and configure the Pixhawk
 
-Start the `aircraft-image` on Jetson Orin NX
+Start the `aircraft-image` on Jetson Orin NX:
 
 ```sh
 cd aerial-autonomy-stack/scripts/
