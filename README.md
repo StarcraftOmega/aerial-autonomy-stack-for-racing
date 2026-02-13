@@ -219,15 +219,12 @@ cd aerial-autonomy-stack/scripts/
 cd aerial-autonomy-stack/scripts
 AUTOPILOT=px4 NUM_QUADS=1 NUM_VTOLS=1 WORLD=swiss_town RTF=3.0 ./sim_run.sh                   # Start a simulation, check the script for more options (note: ArduPilot SITL checks take ~40s before being ready to arm)
 
-# Options (find more in sim_run.sh):
+# Options:
 # AUTOPILOT=px4, ardupilot
-# HEADLESS=true, false
-# CAMERA=true, false
-# LIDAR=true, false
-# NUM_QUADS=0, 1, ...
-# NUM_VTOLS=0, 1, ...
+# CAMERA/LIDAR/HEADLESS=true, false
+# NUM_QUADS/NUM_VTOLS=0, 1, ...
 # WORLD=impalpable_greyness, apple_orchard, shibuya_crossing, swiss_town
-# RTF=1.0, use 0.0 for "as fast as possible"
+# RTF=1.0, 2.0, ... (real-time-factor, use 0.0 for "as fast as possible)
 # INSTANCE=0, 1, ... (integer ID to run multiple parallel simulations)
 ```
 
@@ -438,7 +435,7 @@ Start the `aircraft-image` on Jetson Orin NX:
 ```sh
 cd aerial-autonomy-stack/scripts/
 DRONE_TYPE=quad AUTOPILOT=px4 DRONE_ID=1 CAMERA=true LIDAR=false HEADLESS=true ./deploy_run.sh
-# Note: the 1st run of `./deploy_run.sh` requires ~10' to build the FP16 TensorRT cache
+# The 1st run of `./deploy_run.sh` requires ~10' to build the FP16 TensorRT cache
 ```
 
 <details>
