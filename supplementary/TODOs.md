@@ -43,10 +43,13 @@
 - Use ArduPilot ROS2 DDS interface instead of or alongside MAVROS
     - https://github.com/ArduPilot/ardupilot/tree/master/Tools/ros2#readme
     - https://ardupilot.org/dev/docs/ros2-sitl.html
-- Integrate a photorealistic simulator (e.g., IsaacSim)
-    - https://github.com/PegasusSimulator/PegasusSimulator
+- Add support for tail-sitter models
+    - https://github.com/ArduPilot/ardupilot_gazebo/tree/main/models/zephyr
+    - https://github.com/PX4/PX4-gazebo-models/tree/main/models/quadtailsitter
 - Integrate a GIS world generator (e.g., Cesium)
     - https://github.com/CesiumGS/cesium-native
+- Integrate a photorealistic simulator (e.g., IsaacSim)
+    - https://github.com/PegasusSimulator/PegasusSimulator
 - Integrate more realistic flight dynamics (e.g., JSBSim)
     - https://github.com/JSBSim-Team/jsbsim
 - Integrate a VLA model bridging the `yolo_py` and `mission` packages
