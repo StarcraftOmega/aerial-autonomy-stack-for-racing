@@ -244,7 +244,12 @@ SERIAL2_PROTOCOL MAVLink2
 
 TELEM1 is the [bottom-right 6-pin port on the Jetson Baseboard](https://docs.holybro.com/autopilot/pixhawk-baseboards/pixhawk-jetson-baseboard/ports-pinout#tel1-tel3-ports)
 
-To use it to connect a ground station (e.g. QGC) with a telemetry radio (e.g. [Holybro 1W SiK telemetry](https://holybro.com/collections/telemetry-radios/products/sik-telemetry-radio-1w)), use the following parameters
+To use it to connect a ground station (e.g. QGC) with a telemetry radio (e.g., [Holybro 1W SiK telemetry](https://holybro.com/collections/telemetry-radios/products/sik-telemetry-radio-1w) for point-to-point or [Holybro P900 telemetry](https://holybro.com/collections/telemetry-radios/products/microhard-radio) for point-to-multipoint), use the following parameters
+
+<!--
+- [Sik NET ID configuration](https://docs.px4.io/main/en/data_links/sik_radio#configuration-instructions)
+- [P900 Point-to-Multipoint](https://docs.holybro.com/radio/microhard-radio/point-to-multipoint-setup-with-microhard-radio)
+-->
 
 ### PX4 Configuration
 
