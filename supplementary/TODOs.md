@@ -78,5 +78,5 @@
 - [x] [Gazebo Sim Harmonic (LTS, EOL 9/2028)](https://gazebosim.org/docs/latest/releases/)
 - [ ] [PX4 1.16.0](https://github.com/PX4/PX4-Autopilot/releases) -> **UPDATE TO 1.16.1**
 - [ ] [ArduPilot 4.6.2](https://github.com/ArduPilot/ardupilot/releases) -> **UPDATE TO 4.6.3**
-- [ ] [YOLOv8](https://github.com/ultralytics/ultralytics/releases) -> **UPDATE TO 26**
+- [x] [YOLO26](https://github.com/ultralytics/ultralytics/releases)
 - [x] [ONNX Runtime 1.23.2](https://github.com/microsoft/onnxruntime/releases) (updating to 1.24 from wheel will require switching to Python 3.11)

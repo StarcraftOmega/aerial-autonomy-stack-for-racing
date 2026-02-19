@@ -55,7 +55,7 @@ class YoloInferenceNode(Node):
             }
             self.session = ort.InferenceSession(
                 model_path,
-                providers=[('TensorrtExecutionProvider', provider_options)] # For deployment on Jetson Orin
+                providers=[('TensorrtExecutionProvider', provider_options)] # For deployment on Jetson Orin, 60Hz inference on the IMX219-200
             )
         else:
             print(f"Loading CPUExecutionProvider on an unknown architecture: {self.architecture}")
@@ -224,7 +224,8 @@ class YoloInferenceNode(Node):
         with Profiler("ONNX Runtime Inference"):
             outputs = self.session.run(None, {self.input_name: img})
 
-        # YOLO26 is NMS-free. Output shape is [1, max_det, 6] -> [batch, detections, [x1, y1, x2, y2, conf, class_id]]
+        # YOLO26 is NMS-free https://docs.ultralytics.com/models/yolo26/#what-are-the-key-improvements-in-yolo26-compared-to-yolo11
+        # Output shape is [1, max_det, 6] -> [batch, detections, [x1, y1, x2, y2, conf, class_id]]
         preds = outputs[0][0]
         boxes = preds[:, :4] # x1, y1, x2, y2
         confidences = preds[:, 4]
