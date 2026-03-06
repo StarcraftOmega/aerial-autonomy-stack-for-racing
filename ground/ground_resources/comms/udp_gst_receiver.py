@@ -1,0 +1,42 @@
+import cv2
+import argparse
+import sys
+
+def main():
+    parser = argparse.ArgumentParser(description="Receive UDP GStreamer video and display it.")
+    parser.add_argument('--port', type=int, required=True, help="UDP port to listen on.")
+    parser.add_argument('--name', type=str, required=True, help="Window name for the display.")
+    args = parser.parse_args()
+
+    port = args.port
+    name = args.name
+
+    pipeline = (
+        f"udpsrc port={port} ! "
+        "application/x-rtp,media=video,clock-rate=90000,encoding-name=H265,payload=96 ! "
+        "rtpjitterbuffer latency=50 drop-on-latency=true ! "
+        "rtph265depay ! h265parse ! avdec_h265 ! videoconvert ! "
+        "video/x-raw,format=BGR ! appsink max-buffers=1 drop=true sync=false"
+    )
+    cap = cv2.VideoCapture(pipeline, cv2.CAP_GSTREAMER)
+    
+    if not cap.isOpened():
+        print(f"[{name}] Error: Could not open GStreamer pipeline on port {port}.")
+        sys.exit(1)
+
+    cv2.namedWindow(name, cv2.WINDOW_NORMAL)
+    print(f"[{name}] Listening for H.265 stream on UDP port {port}...")
+
+    while True:
+        ret, frame = cap.read()
+        if ret:
+            cv2.imshow(name, frame)
+            
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+if __name__ == '__main__':
+    main()
