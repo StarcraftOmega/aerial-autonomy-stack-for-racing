@@ -432,7 +432,7 @@ Start the `aircraft-image` on Jetson Orin NX:
 
 ```sh
 cd aerial-autonomy-stack/scripts/
-AUTOPILOT=px4 DRONE_ID=1 CAMERA=true LIDAR=false HEADLESS=true ./deploy_run.sh
+AUTOPILOT=px4 DRONE_ID=1 CAMERA=true LIDAR=false AIR_SUBNET=10.223 HEADLESS=true ./deploy_run.sh
 # The 1st run of `./deploy_run.sh` requires ~10' to build the FP16 TensorRT cache
 
 # Deployment options:
