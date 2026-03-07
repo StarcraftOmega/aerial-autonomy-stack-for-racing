@@ -58,7 +58,7 @@ for repo_info in "${REPOS[@]}"; do
 done
 
 # Get simulation_assets from GitHub release
-ASSETS_URL="https://github.com/JacopoPan/aerial-autonomy-stack/releases/download/v1.1.0/simulation_assets_v2.zip"
+ASSETS_URL="https://github.com/JacopoPan/aerial-autonomy-stack/releases/download/v1.2.0/simulation_assets_v2.zip"
 EXPECTED_HASH="ab9dabbe8e7cd25c4c9a6c8741fe2029a392b6c1ea84014978c187b793afa3a6" # sha256sum simulation_assets_v2.zip
 ZIP_FILE="$CLONE_DIR/simulation_assets_v2.zip"
 DOWNLOAD_NEEDED=true
