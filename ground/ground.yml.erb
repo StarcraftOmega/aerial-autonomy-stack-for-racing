@@ -94,6 +94,8 @@ windows:
       layout: tiled
       panes:
         <% (1..(num_quads + num_vtols)).each do |drone_id| %>
-        - clear && echo "Use: docker exec -it aircraft-container-inst0_<%= drone_id %> tmux attach" && ssh orin@10.223.90.<%= drone_id %>
+        - |
+          echo -e "\n\n Attach the AAS container with:\n\n\tdocker exec -it aircraft-container_<%= drone_id %> tmux attach\n\n"
+          ssh orin@10.223.90.<%= drone_id %>
         <% end %>
   <% end %>
