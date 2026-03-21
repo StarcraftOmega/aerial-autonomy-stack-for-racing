@@ -1,7 +1,7 @@
 sensors:
 
   camera_intrinsics:
-    horizontal_fov: 1.74
+    diagonal_fov_deg: 120.0
     width: 320
     height: 240
     update_rate: 8

@@ -22,14 +22,10 @@
 
   gymnasium = ENV.fetch('GYMNASIUM', 'false') == 'true'
 
-  # Load simulated camera parameters from the sensor_config.yaml file to calculate dfov
+  # Load simulated camera parameters from the sensor_config.yaml file
   require 'yaml'
   sensor_config = YAML.load_file('/aas/aircraft_resources/sensor_config.yaml')
-  cam_intrinsics = sensor_config['sensors']['camera_intrinsics']
-
-  focal_length = cam_intrinsics['width'].to_f / (2.0 * Math.tan(cam_intrinsics['horizontal_fov'].to_f / 2.0))
-  diagonal = Math.sqrt(cam_intrinsics['width'].to_f**2 + cam_intrinsics['height'].to_f**2)
-  dfov_deg = (2.0 * Math.atan(diagonal / (2.0 * focal_length))) * (180.0 / Math::PI)
+  dfov_deg = sensor_config['sensors']['camera_intrinsics']['diagonal_fov_deg']
 %>
 
 name: drone
