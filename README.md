@@ -193,8 +193,8 @@ aerial-autonomy-stack
 - [ ] Jetpack: [6.2.1 (rev. 1) [L4T 36.4.4, Ubuntu 22-based]](https://developer.nvidia.com/embedded/jetpack-archive)
     - **TODO: update to JP 6.2.2 [L4T 36.5.0, Ubuntu 22-based], latest (last?) JP supported on Orin Series**
 - [x] [`nvidia-driver-580`](https://developer.nvidia.com/datacenter-driver-archive)
-    - **NOTE: `nvidia-driver-590` [deprecates Ubuntu 22's GStreamer 1.20 presets](https://docs.nvidia.com/video-technologies/video-codec-sdk/13.0/deprecation-notices/index.html) and cannot be used without updating the `amd64` images to Ubuntu 24 or compiling `gst 1.24` from source on the Ubuntu 22 images**
-    - **AAS sticks with `nvidia-driver-580` and Ubuntu 22 `amd64` images for parity with the L4T 36.x, Ubuntu 22-based `arm64` images**
+    - **NOTE: `nvidia-driver-590` does not support the [presets in Ubuntu 22's GStreamer 1.20](https://docs.nvidia.com/video-technologies/video-codec-sdk/13.0/deprecation-notices/index.html) and it requires updating the `amd64` base images to Ubuntu 24 or compiling [GStreamer 1.24](https://discourse.gstreamer.org/t/nvcodec-nvenc-nvidia-deprecates-support-for-old-videocodec-sdk-h-264-hevc-encoder-presets-with-driver-r550-in-q124/182) from source**
+    - **AAS sticks with `nvidia-driver-580` and Ubuntu 22 `amd64` base images for parity with the L4T 36.x, Ubuntu 22-based `arm64` base image**
 - [x] [Docker Engine v29](https://docs.docker.com/engine/release-notes/)
 - [x] [NVIDIA Container Toolkit 1.19](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
 - [x] `amd64` base image: [`cuda:13.2.0-cudnn-runtime-ubuntu22.04`](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/cuda/tags)
@@ -268,7 +268,7 @@ done
 ```
 
 > [!TIP]
-> Edit [`sensor_config.yaml`](simulation/simulation_resources/aircraft_models/sensor_config.yaml) before running `sim_build.sh` to customize the sensor parameters
+> Edit [`sensor_config.yaml`](simulation/simulation_resources/aircraft_models/sensor_config.yaml), then run `sim_build.sh` to customize the sensor parameters
 >
 > <details>
 > <summary>Add or disable <b>wind effects</b>, in the <kbd>Simulation</kbd>'s Xterm terminal <i>(click to expand)</i></summary>
@@ -396,53 +396,7 @@ done
 > / *(iii)* `shibuya_crossing`, a 3D world adapted from [cgtrader](https://www.cgtrader.com/)
 > / *(iv)* `swiss_town`, a photogrammetry world courtesy of [Pix4D / pix4d.com](https://support.pix4d.com/hc/en-us/articles/360000235126)
 
-## 3. Gymnasium Environment
-
-<details>
-<summary>Using a Python <kbd>venv</kbd> or a <a href="https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html"><kbd>conda</kbd></a> environment is optional but recommended <i>(click to expand)</i></summary>
-
-```sh
-wget https://repo.anaconda.com/archive/Anaconda3-2025.06-0-Linux-x86_64.sh # Or a newer version in https://repo.anaconda.com/archive/
-bash Anaconda3-2025.06-0-Linux-x86_64.sh
-conda create -n aas python=3.13
-```
-</details>
-
-Install the `aas-gym` package (**after** completing the steps in ["Installation"](#1-installation)):
-```sh
-conda activate aas                                    # If using Anaconda
-cd aerial-autonomy-stack/aas-gym/
-pip3 install -e .
-```
-
-<div align="right">
-  <a href="https://github.com/JacopoPan/aerial-autonomy-stack/actions/workflows/aas-gym-pip-install.yml">
-    <img src="https://github.com/JacopoPan/aerial-autonomy-stack/actions/workflows/aas-gym-pip-install.yml/badge.svg" alt="aas-gym pip install">
-  </a>
-</div>
-
-Use with:
-```sh
-conda activate aas                                    # If using Anaconda
-cd aerial-autonomy-stack/scripts
-python3 gym_run.py --mode step                        # Manually step AAS @1Hz
-python3 gym_run.py --mode speedup                     # Speed-up test @50Hz (10x RTF)
-python3 gym_run.py --mode vectorenv-speedup           # Vectorized speed-up test @50Hz (>20x RTF)
-```
-
-<!--
-WIP:
-python3 gym_run.py --mode learn                       # Train and test a PPO agent
-
-Debug with:
-docker exec -it simulation-container-inst0 tmux attach
-docker exec -it aircraft-container-inst0_1 tmux attach
-
-Clean up with:
-docker stop $(docker ps -q) && docker container prune -f && docker network prune -f
--->
-
-## 4. Jetson Deployment
+## 3. Jetson Deployment
 
 ```sh
 sudo apt update && sudo apt install -y git
@@ -460,9 +414,9 @@ cd aerial-autonomy-stack/scripts/
 </div>
 
 >[!NOTE]
-> AAS is tested on a [Holybro Jetson Baseboard](https://holybro.com/products/pixhawk-jetson-baseboard) with Pixhawk 6X and NVIDIA Orin NX 16GB on an [X650](/supplementary/BOM.md)
+> AAS is tested on a [Holybro Jetson Baseboard](https://holybro.com/products/pixhawk-jetson-baseboard) with Pixhawk 6X and NVIDIA Orin NX 16GB on an X650
 >
-> Read [`SETUP_AVIONICS.md`](/supplementary/SETUP_AVIONICS.md) to setup the requirements on the Jetson and configure the Pixhawk
+> Read [`SETUP_AVIONICS.md`](/supplementary/SETUP_AVIONICS.md) and [`BOM.md`](/supplementary/BOM.md) to setup the requirements on the Jetson and configure the Pixhawk
 
 Start the `aircraft-image` on Jetson Orin NX:
 
@@ -521,8 +475,53 @@ HITL=true GROUND=true HEADLESS=false NUM_QUADS=2 ./deploy_run.sh
 > **Note:** running only the first 3 commands with `GND_CONTAINER=false` puts the Zenoh bridge on the `SIM_SUBNET`, removing the need for the optional `AIR_SUBNET` and the computer with IP ending in `90.101`
 
 Once done, detach Tmux (and remove the containers) with `Ctrl + b`, then `d`
-
 </details>
+
+## 4. Gymnasium Environment
+
+<details>
+<summary>Using a Python <kbd>venv</kbd> or a <a href="https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html"><kbd>conda</kbd></a> environment is optional but recommended <i>(click to expand)</i></summary>
+
+```sh
+wget https://repo.anaconda.com/archive/Anaconda3-2025.06-0-Linux-x86_64.sh # Or a newer version in https://repo.anaconda.com/archive/
+bash Anaconda3-2025.06-0-Linux-x86_64.sh
+conda create -n aas python=3.13
+```
+</details>
+
+Install the `aas-gym` package (**after** completing the steps in ["Installation"](#1-installation)):
+```sh
+conda activate aas                                    # If using Anaconda
+cd aerial-autonomy-stack/aas-gym/
+pip3 install -e .
+```
+
+<div align="right">
+  <a href="https://github.com/JacopoPan/aerial-autonomy-stack/actions/workflows/aas-gym-pip-install.yml">
+    <img src="https://github.com/JacopoPan/aerial-autonomy-stack/actions/workflows/aas-gym-pip-install.yml/badge.svg" alt="aas-gym pip install">
+  </a>
+</div>
+
+Use with:
+```sh
+conda activate aas                                    # If using Anaconda
+cd aerial-autonomy-stack/scripts
+python3 gym_run.py --mode step                        # Manually step AAS @1Hz
+python3 gym_run.py --mode speedup                     # Speed-up test @50Hz (10x RTF)
+python3 gym_run.py --mode vectorenv-speedup           # Vectorized speed-up test @50Hz (>20x RTF)
+```
+
+<!--
+WIP:
+python3 gym_run.py --mode learn                       # Train and test a PPO agent
+
+Debug with:
+docker exec -it simulation-container-inst0 tmux attach
+docker exec -it aircraft-container-inst0_1 tmux attach
+
+Clean up with:
+docker stop $(docker ps -q) && docker container prune -f && docker network prune -f
+-->
 
 ---
 > You've done a man's job, sir. I guess you're through, huh?
