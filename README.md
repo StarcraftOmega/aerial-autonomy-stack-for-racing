@@ -189,5 +189,3 @@ For HITL and multi-node networking, use the `HITL`, `SIM_SUBNET`, and `AIR_SUBNE
 ## Status and Scope
 
 This repository is actively usable for racing-oriented PX4 quad workflows, while still retaining broader upstream AAS components in the build and simulation templates (for example ArduPilot-related assets).
-
-If you want, the next step can be a stricter "racing-only" cleanup README section that explicitly marks which components are required vs optional for your exact training pipeline.
