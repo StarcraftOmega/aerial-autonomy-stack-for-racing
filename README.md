@@ -73,7 +73,7 @@ Recommended baseline (from scripts and docs):
 ## 1) Installation
 
 ```bash
-git clone <YOUR_REPO_URL>
+git clone <https://github.com/StarcraftOmega/aerial-autonomy-stack-for-racing.git>
 cd aerial-autonomy-stack-for-racing/scripts
 
 # Validate host dependencies
