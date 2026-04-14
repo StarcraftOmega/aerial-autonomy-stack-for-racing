@@ -131,6 +131,7 @@ simulation/simulation_resources/simulation_worlds/subaru/meshes/subaru.obj
 *.slo
 *.lo
 *.o
+Anaconda3*
 # *.obj
 
 # Precompiled Headers
