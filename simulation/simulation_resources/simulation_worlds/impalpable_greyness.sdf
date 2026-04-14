@@ -566,5 +566,12 @@
         
     </model>
 
+    <!-- Spawn the Racing Gate 5 meters in front of the drone -->
+    <include>
+      <uri>model://racing_gate</uri>
+      <static>true</static>
+      <pose>5 0 0 0 0 1.5708</pose>
+    </include>
+
   </world>
 </sdf>
