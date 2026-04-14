@@ -57,9 +57,6 @@ windows:
           <% unless camera %>
           sed -i '/<sensor/,/<\/sensor>/d' /aas/simulation_resources/aircraft_models/sensor_camera/model.sdf &&
           <% end %>
-          <% unless lidar %>
-          sed -i '/<sensor/,/<\/sensor>/d'  /aas/simulation_resources/aircraft_models/sensor_lidar/model.sdf &&
-          <% end %>
           sed -i 's|<real_time_factor>1.0</real_time_factor>|<%= rtf_string %>|' /aas/simulation_resources/simulation_worlds/<%= world %>.sdf &&
           <% if autopilot == 'ardupilot' %>
           /aas/simulation_resources/aircraft_models/_create_ardupilot_models.sh <%= num_quads %> <%= num_vtols %>  &&

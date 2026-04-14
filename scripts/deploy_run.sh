@@ -4,17 +4,17 @@
 set -e
 
 # Set up the aircraft
-AUTOPILOT="${AUTOPILOT:-px4}" # Options: px4 (default), ardupilot
+AUTOPILOT="px4"
 HEADLESS="${HEADLESS:-true}" # Options: true (default), false 
 CAMERA="${CAMERA:-true}" # Options: true (default), false
-LIDAR="${LIDAR:-true}" # Options: true (default), false
+LIDAR="false"
 #
 SIM_SUBNET="${SIM_SUBNET:-10.42}" # Simulation subnet (default = 10.42)
 AIR_SUBNET="${AIR_SUBNET:-10.22}" # Inter-vehicle subnet (default = 10.22)
 SIM_ID="${SIM_ID:-100}" # Last byte of the simulation container IP (default = 100)
 GROUND_ID="${GROUND_ID:-101}" # Last byte of the simulation container IP (default = 101)
 #
-DRONE_TYPE="${DRONE_TYPE:-quad}" # Options: quad (default), vtol
+DRONE_TYPE="quad"
 DRONE_ID="${DRONE_ID:-1}" # Id of aircraft (default = 1)
 #
 DEV="${DEV:false}" # Options: true, false (default)

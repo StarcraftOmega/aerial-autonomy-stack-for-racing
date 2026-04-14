@@ -2,7 +2,6 @@
   autopilot = ENV.fetch('AUTOPILOT', 'px4')
   headless = ENV.fetch('HEADLESS', 'true') == 'true'
   camera = ENV.fetch('CAMERA', 'true') == 'true'
-  lidar = ENV.fetch('LIDAR', 'true') == 'true'
 
   sim_subnet = ENV.fetch('SIM_SUBNET', '10.42')
   air_subnet = ENV.fetch('AIR_SUBNET', '10.22')
@@ -60,9 +59,6 @@ windows:
         <% if camera %>
         - ros2 run yolo_py yolo_py <%= headless ? '--headless' : '' %> <%= hitl ? '--hitl' : '' %> <%= remote_video_streams ? '--remote-video-streams' : '' %> <%= simulated_time ? '--ros-args -p use_sim_time:=true' : '' %> --dfov <%= simulated_time ? dfov_deg : 200.0 %>
         <% end %>
-        <% if lidar %>
-        - ros2 launch kiss_icp odometry.launch.py topic:=/lidar_points <%= headless ? 'visualize:=false' : '' %>
-        <% end %>
 
   <% if autopilot == 'px4' %>
   - uxrce_dds_and_zenoh:
@@ -85,13 +81,6 @@ windows:
         - >
           erb /aas/aircraft_resources/comms/zenoh_config_air.json5.erb > /aas/aircraft_resources/comms/zenoh_config_air.json5 &&
           zenoh-bridge-ros2dds -e tcp/<%= gnd_container ? "#{air_subnet}.90.#{ground_id}" : "#{sim_subnet}.90.#{sim_id}" %>:7447 -c /aas/aircraft_resources/comms/zenoh_config_air.json5
-
-  <% if lidar && !simulated_time %>
-  - livox_driver:
-      layout: tiled
-      panes:
-        - ros2 launch livox_ros_driver2 msg_MID360_launch.py
-  <% end %>
 
   <% if record_rosbag %>
   - logging:

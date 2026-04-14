@@ -77,7 +77,6 @@ flowchart TB
         subgraph air ["[N#nbsp;x]#nbsp;aircraft#nbsp;container(s)#nbsp;(amd64,#nbsp;arm64)"]
             subgraph perception [Perception]
                 yolo_py[/yolo_py/]:::algo
-                kiss_icp[/kiss_icp/]:::algo
             end
             subgraph control [Control]
                 offboard_control(offboard_control):::algo
@@ -90,7 +89,6 @@ flowchart TB
             end
             zenoh_air{{zenoh-bridge}}:::bridge
 
-            kiss_icp -.-> |"/TBD"| ap_link
             ap_link <--> autopilot_interface
             ap_link --> state_sharing
             yolo_py --> |"/detections"| offboard_control
@@ -104,7 +102,6 @@ flowchart TB
 
     repo ~~~ gz
     gz --> |"gz_gst_bridge <br/> [SIM_SUBNET]"| yolo_py
-    gz --> |"/lidar_points <br/> [SIM_SUBNET]"| kiss_icp
     sitl <--> |"UDP <br/> [SIM_SUBNET]"| ap_link
     sitl <--> |"MAVLink <br/> [SIM_SUBNET]"| mlrouter 
     zenoh_gnd <-.-> |"TCP <br/> [AIR_SUBNET]"| zenoh_air
