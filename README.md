@@ -92,7 +92,7 @@ Notes:
 
 ```bash
 cd scripts
-AUTOPILOT=px4 NUM_QUADS=1 WORLD=impalpable_greyness HEADLESS=false RTF=3.0 ./sim_run.sh
+./sim_run.sh
 ```
 
 Important behavior from current `sim_run.sh`:
