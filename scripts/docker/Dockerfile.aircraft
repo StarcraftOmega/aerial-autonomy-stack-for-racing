@@ -12,7 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update \
     && apt install -y --no-install-recommends \
         wget gosu htop vim ruby tmux xclip net-tools iproute2 iputils-ping netcat-openbsd \
-        python3-pip python3-venv \
+        python3-pip python3-venv python3-numpy \
         mesa-utils \
     && gem install tmuxinator \
     && apt clean \
@@ -57,7 +57,7 @@ WORKDIR /aas/github_ws
 RUN rosdep update
 RUN rosdep install --from-paths src --ignore-src --rosdistro humble -y
 # Explicitly use bash, not sh, to source and build the workspace
-RUN bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install"
+RUN bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DPython_NumPy_INCLUDE_DIR=$(python3 -c 'import numpy; print(numpy.get_include())')"
 
 ################################################################################
 # Stage 3 - 8.5GB ##############################################################
@@ -176,7 +176,7 @@ WORKDIR /aas/github_ws/
 RUN cp -f src/livox_ros_driver2/package_ROS2.xml src/livox_ros_driver2/package.xml \
     && cp -rf src/livox_ros_driver2/launch_ROS2 src/livox_ros_driver2/launch
 # Explicitly use bash, not sh, to source and build the workspace
-RUN bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install --packages-select livox_ros_driver2 --cmake-args -DROS_EDITION=ROS2 -DHUMBLE_ROS=humble -DCMAKE_BUILD_TYPE=Release"
+RUN bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install --packages-select livox_ros_driver2 --cmake-args -DROS_EDITION=ROS2 -DHUMBLE_ROS=humble -DCMAKE_BUILD_TYPE=Release -DPython_NumPy_INCLUDE_DIR=$(python3 -c 'import numpy; print(numpy.get_include())')"
 
 ################################################################################
 # Stage 6 - 16GB ###############################################################
@@ -188,7 +188,7 @@ RUN pip3 install --no-cache-dir --upgrade "cmake>=3.24"
 COPY /github_clones/kiss-icp /aas/github_ws/src/kiss-icp
 WORKDIR /aas/github_ws
 # Explicitly use bash, not sh, to source and build the workspace
-RUN bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install --packages-skip livox_ros_driver2 --cmake-args -DCMAKE_BUILD_TYPE=Release"
+RUN bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install --packages-select kiss_icp --cmake-args -DCMAKE_BUILD_TYPE=Release -DPython_NumPy_INCLUDE_DIR=$(python3 -c 'import numpy; print(numpy.get_include())')"
 
 # Add pymavlink for debugging and testing
 RUN pip3 install --no-cache-dir --upgrade pip \
@@ -232,7 +232,7 @@ WORKDIR /aas/aircraft_ws
 RUN rosdep update
 RUN rosdep install --from-paths src/ --ignore-src --rosdistro humble -y --skip-keys "px4_msgs"
 # Explicitly use bash, not sh, to source and build the workspace
-RUN bash -c "source /opt/ros/humble/setup.bash && source /aas/github_ws/install/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release"
+RUN bash -c "source /opt/ros/humble/setup.bash && source /aas/github_ws/install/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release -DPython_NumPy_INCLUDE_DIR=$(python3 -c 'import numpy; print(numpy.get_include())')"
 
 # Copy resources and configuration files from this repository
 COPY aircraft/aircraft_resources/ /aas/aircraft_resources
